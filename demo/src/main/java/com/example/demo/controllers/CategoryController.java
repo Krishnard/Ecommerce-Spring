@@ -5,6 +5,7 @@ import com.example.demo.Services.FakeStoreCategoryServices;
 import com.example.demo.Services.ICategoryService;
 import com.example.demo.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -14,40 +15,31 @@ import java.util.*;
 @RequestMapping("api/categories")
 public class CategoryController {
     
-    // private FakeStoreCategoryServices categoryServices;
-    // if later further in project it will have to changes deu to changes in services
-    // for ex. SQLCategoryService or something like that
-    //therefore, this violates the dependency inversion principle (DIP) -  we should not directly depend on concrete class
-    // need to create an abstraction
     
-    // now our class is dependent on interface so there is no issue
+    // Using interface instead of concrete class (e.g., FakeStoreCategoryServices) follows
+    // the Dependency Inversion Principle (DIP) – depend on abstractions, not implementations.
+    // This allows us to switch the service implementation later (e.g., SQLCategoryService) without changing controller logic.
     
+    
+    // 2 ways to implement dependency injection in Spring: 1. @Autowired annotation, 2. Constructor Injection
+    // Constructor Injection is the recommended way in Spring as it makes the code more testable and easier to manage.
     
     // @Autowired
     private final ICategoryService CategoryService; // @Autowired doesn't support final keyword
     
+    // Constructor Injection (Recommended way in Spring)
+    // Spring will automatically inject a bean that implements ICategoryService
+    // This is a part of Dependency Injection (DI) -object receives it dependencies from external source rather than creating it
+    // It helps decouple the controller from specific service implementations
     
-    // constructor
-    // now here we have assigned our iCategoryService an object
-    // so whenever spring call the constructor of CategoryController it has to pass the obj. which is
-    // compatible to ICategoryService
-    // it will check whether we have implementation of ICategoryService
-    // yes we have implementation of ICategoryService as a FakeStoreCategoryService
-    // so create obj of that class and inject it automatically
-    // and this whole thing is called as
-    // Dependency Injection - object receives it dependencies from external source rather than creating it
-    // Spring is providing us Dependency Injection capability with use of this we are simplifying implementation of dependency inversion principle
     
      CategoryController(ICategoryService CategoryService) {
         this.CategoryService = CategoryService;
     }
-
-    // this was a first way to do this
-    
-    // second way to do this is using @autowired
     
     
     
+    /*
     @GetMapping
     public List<CategoryDTO> getAllCategories() throws IOException {
         // It must not contain any business logic
@@ -55,8 +47,22 @@ public class CategoryController {
         
         return this.CategoryService.getAllCategories() ;
     }
+     */
+    
+    // we're trying to use reponseentity that is used to manipulate the HTTP response
+    
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> getAllCategories() throws IOException {
+        
+        List<CategoryDTO> responseResult = this.CategoryService.getAllCategories();
+        
+        // return ResponseEntity with status code 200 OK and the list of categories
+//        return ResponseEntity.ok(responseResult);
+        
+        
+        // this will return a 201 Created status code
+        return ResponseEntity.created(null).body(responseResult);
+    }
+    
 }
 
-
-
-// new Cate
