@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@RequestMapping("api/categories")
+@RequestMapping("/api/categories")
 public class CategoryController {
     
     
@@ -54,14 +54,18 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> getAllCategories() throws IOException {
         
-        List<CategoryDTO> responseResult = this.CategoryService.getAllCategories();
+         // List<CategoryDTO> responseResult = this.CategoryService.getAllCategories();
         
         // return ResponseEntity with status code 200 OK and the list of categories
 //        return ResponseEntity.ok(responseResult);
         
         
         // this will return a 201 Created status code
-        return ResponseEntity.created(null).body(responseResult);
+        // return ResponseEntity.created(null).body(responseResult);
+    
+        List<CategoryDTO> categories = CategoryService.getAllCategories();
+        return ResponseEntity.ok(categories);
+        
     }
     
 }
