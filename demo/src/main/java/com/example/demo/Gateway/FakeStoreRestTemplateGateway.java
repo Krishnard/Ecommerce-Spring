@@ -6,6 +6,7 @@ import com.example.demo.dto.FakeStoreCategoryResponseDTO;
 
 //
 import com.example.demo.mappers.getAllCategoriesMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -63,16 +64,18 @@ public class FakeStoreRestTemplateGateway implements ICategoryGateway {
         this.restTemplateBuilder = restTemplateBuilder;
     }
     
+    @Value("${fakeStore.baseUrl}")
+    private String fakeBaseUrl; // this will be used to get the base URL from application.properties
+    
     @Override
     public List<CategoryDTO> getAllCategories() throws IOException {
         
         RestTemplate restTemplate = restTemplateBuilder.build();
         
-        String baseUrl = "https://fakestoreapi.in/api/products/category";
         
         ResponseEntity<FakeStoreCategoryResponseDTO> responseEntity = restTemplate.
                 getForEntity(
-                        baseUrl, FakeStoreCategoryResponseDTO.class
+                        fakeBaseUrl+"products/category", FakeStoreCategoryResponseDTO.class
                 );
         
         if (responseEntity.getBody() == null) {

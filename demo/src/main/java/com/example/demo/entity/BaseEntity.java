@@ -11,7 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 
-import java.time.Instant; // Instant class from java time package is used to represent a point in time, typically used for timestamps.
+import java.time.Instant; // Instant class from java time package is used to represent a point in time,
+// typically used for timestamps.
+
 
 
 // this is JPA annotation that is used to define base class that contains the common field
@@ -32,8 +34,8 @@ import java.time.Instant; // Instant class from java time package is used to rep
 public class BaseEntity {
     
     @Id // this will mark the field as the primary key of the entity
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // this will generate the primary key value automatically (like auto_increment in sql)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // this will generate the primary key value automatically
+    private Long id;
     
     
     @CreatedDate // this is updated only once when the entity is created
@@ -59,6 +61,7 @@ public class BaseEntity {
     // This method is automatically called before the entity is updated in the database.
     @PreUpdate
     public void onUpdated() {
+        
         this.updatedAt = Instant.now();
     }
     

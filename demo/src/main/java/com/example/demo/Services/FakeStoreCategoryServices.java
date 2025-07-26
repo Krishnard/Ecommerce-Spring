@@ -14,8 +14,7 @@ public class FakeStoreCategoryServices implements ICategoryService {
     
     private final ICategoryGateway categoryGateway;
     
-    public FakeStoreCategoryServices(
-            @Qualifier("fakeStoreRestTemplateGateway") ICategoryGateway categoryGateway) {
+    public FakeStoreCategoryServices(@Qualifier("fakeStoreRestTemplateGateway") ICategoryGateway categoryGateway) {
         this.categoryGateway = categoryGateway;
     }
     

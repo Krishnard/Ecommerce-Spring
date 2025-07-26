@@ -3,9 +3,9 @@ package com.example.demo.Configurations;
 import com.example.demo.Gateway.api.FakeStoreCategoryApi;
 import com.example.demo.Gateway.api.FakeStoreProductApi;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -14,13 +14,16 @@ public class RetrofitConfig {
     
     Dotenv dotenv = Dotenv.configure().load();
     
-    private final String baseUrl = dotenv.get("FakeBase_URL");
+    
+    @Value("${fakeStore.baseUrl}")
+    private String fakeBaseUrl;
+    
     
     @Bean
     public Retrofit retrofit(){
         
         return new Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl(fakeBaseUrl) // use the value from application.properties
         .addConverterFactory(GsonConverterFactory.create())
         .build();
     }

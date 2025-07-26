@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -17,7 +18,6 @@ public class ProductEntity extends BaseEntity {
     private String description;
     private int discount;
     private String model;
-    private int id;
     private String title;
     private String category;
     private String brand;
