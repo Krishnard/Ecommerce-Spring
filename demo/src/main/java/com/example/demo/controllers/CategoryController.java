@@ -1,15 +1,12 @@
 package com.example.demo.controllers;
 
-
-import com.example.demo.Services.FakeStoreCategoryServices;
 import com.example.demo.Services.ICategoryService;
 import com.example.demo.dto.CategoryDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -33,7 +30,7 @@ public class CategoryController {
     // It helps decouple the controller from specific service implementations
     
     
-     CategoryController(ICategoryService CategoryService) {
+     CategoryController(   ICategoryService CategoryService) {
         this.CategoryService = CategoryService;
     }
     
@@ -65,6 +62,15 @@ public class CategoryController {
     
         List<CategoryDTO> categories = CategoryService.getAllCategories();
         return ResponseEntity.ok(categories);
+        
+    }
+    
+    
+    @PostMapping
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDto) {
+        // This method is used to create a new category
+        
+        return ResponseEntity.ok(CategoryService.createCategory(categoryDto));
         
     }
     
