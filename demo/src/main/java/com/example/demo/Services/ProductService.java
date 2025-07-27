@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.Repository.categoryRepository;
 import com.example.demo.Repository.productRepository;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.dto.ProductWithCategoryDTO;
 import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.mappers.productMapper;
@@ -74,5 +75,14 @@ public class ProductService implements IProductService {
         
         return expensiveProducts.stream().map(productMapper::toDTO).collect(Collectors.toList());
     }
+    
+    @Override
+    public ProductWithCategoryDTO getProductWithCategory(Long id) throws Exception{
+        ProductEntity productEntity = productRepository.findById(id)
+                .orElseThrow(() -> new Exception("Product not found. "));
+        
+        return productMapper.toProductWithCategoryDTO(productEntity);
+    }
+    
     
 }

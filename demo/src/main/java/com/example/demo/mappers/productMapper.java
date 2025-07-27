@@ -1,6 +1,7 @@
 package com.example.demo.mappers;
 
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.dto.ProductWithCategoryDTO;
 import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ProductEntity;
 
@@ -41,5 +42,26 @@ public class productMapper {
                 
                 .popular(dto.isPopular())
                 .build();
+    }
+    
+    
+    public static ProductWithCategoryDTO toProductWithCategoryDTO(ProductEntity productEntity){
+        
+        return ProductWithCategoryDTO.builder()
+                .image(productEntity.getImage())
+                .color(productEntity.getColor())
+                .price(productEntity.getPrice())
+                .description(productEntity.getDescription())
+                .discount(productEntity.getDiscount())
+                .model(productEntity.getModel())
+                .title(productEntity.getTitle())
+                .brand(productEntity.getBrand())
+                
+                .category(categoryMapper.toDto(productEntity.getCategory()))
+                // If we comment out this when using (fetch = FetchType.LAZY) then we won't get category info.
+                
+                .popular(productEntity.isPopular())
+                .build();
+        
     }
 }

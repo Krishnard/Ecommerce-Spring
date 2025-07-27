@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -24,7 +25,7 @@ public class ProductEntity extends BaseEntity {
     private String brand;
     private boolean popular;
     
-    @ManyToOne // multiple products can be associated to one category // or we can say as one category can have multiple products
+    @ManyToOne(fetch = FetchType.EAGER) // multiple products can be associated to one category // or we can say as one category can have multiple products
     @JoinColumn(name = "categoryId") // this will create a foreign key column in the product table // never be null
     private CategoryEntity category; // Assuming Category is another entity class that you have defined
     

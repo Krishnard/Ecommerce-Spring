@@ -21,6 +21,8 @@ public interface productRepository extends JpaRepository<ProductEntity,Long> {
     List<ProductEntity> findExpensiveProducts(@Param("minPrice") double minPrice);
     // optional returns only one record - unlike list
     // can be considered as coming to hibernate layer
+    // :minPrice - -> must match with "minPrice" in @Param("minPrice")
+    // table_name should be ProductEntity - - > java class mentioned as entity
     
     
     

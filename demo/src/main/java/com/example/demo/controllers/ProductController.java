@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.Services.IProductService;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.dto.ProductWithCategoryDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,14 @@ public class ProductController {
         return ResponseEntity.ok(productService.getExpensiveProducts(price));
     }
     
+    
+    @GetMapping("/{id}/details")
+    public ResponseEntity<ProductWithCategoryDTO> getProductWithCategory(@PathVariable Long id) throws Exception{
+    
+        
+        ProductWithCategoryDTO  productWithCategoryDTO = productService.getProductWithCategory(id);
+        
+        return ResponseEntity.ok(productWithCategoryDTO);
+    }
     
 }
