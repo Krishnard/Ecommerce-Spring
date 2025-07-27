@@ -5,7 +5,6 @@ import com.example.demo.dto.CategoryDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,19 +48,27 @@ public class CategoryController {
     // we're trying to use reponseentity that is used to manipulate the HTTP response
     
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> getAllCategories() throws IOException {
+    public ResponseEntity<?> getAllCategories(@RequestParam(required = false) String name) throws Exception {
         
          // List<CategoryDTO> responseResult = this.CategoryService.getAllCategories();
         
         // return ResponseEntity with status code 200 OK and the list of categories
-//        return ResponseEntity.ok(responseResult);
+        // return ResponseEntity.ok(responseResult);
         
         
         // this will return a 201 Created status code
         // return ResponseEntity.created(null).body(responseResult);
     
-        List<CategoryDTO> categories = CategoryService.getAllCategories();
-        return ResponseEntity.ok(categories);
+        if (name != null || name.isEmpty()) {
+            CategoryDTO categoryDTO = CategoryService.getCategoryByName(name);
+            
+            return ResponseEntity.ok(categoryDTO); // Return a single category wrapped in a list
+        }
+        
+        else {
+            List<CategoryDTO> categories = CategoryService.getAllCategories();
+            return ResponseEntity.ok(categories);
+        }
         
     }
     
@@ -73,6 +80,8 @@ public class CategoryController {
         return ResponseEntity.ok(CategoryService.createCategory(categoryDto));
         
     }
+    
+    
     
 }
 

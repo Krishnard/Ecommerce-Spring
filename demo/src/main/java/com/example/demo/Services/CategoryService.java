@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.mappers.categoryMapper.toDto;
 
 @Primary
 @Service
@@ -30,7 +31,7 @@ public class CategoryService implements ICategoryService{
     public List<CategoryDTO> getAllCategories() throws IOException {
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         for (CategoryEntity categoryEntity : categoryRepository.findAll()){
-            categoryDTOList.add(categoryMapper.toDto(categoryEntity)); // Convert each entity to DTO
+            categoryDTOList.add(toDto(categoryEntity)); // Convert each entity to DTO
         }
         
         return categoryDTOList; // Return the list of DTOs
@@ -43,8 +44,19 @@ public class CategoryService implements ICategoryService{
         
         CategoryEntity categoryEntitySaved = categoryRepository.save(categoryEntity); // Save the entity
         
-        CategoryDTO categoryDTO = categoryMapper.toDto(categoryEntitySaved); // Convert saved entity back to DTO
+        CategoryDTO categoryDTO = toDto(categoryEntitySaved); // Convert saved entity back to DTO
         
         return categoryDTO; // return the DTO
     }
+    
+    
+    @Override
+    public CategoryDTO getCategoryByName(String name) throws Exception {
+         CategoryEntity categoryEntity = categoryRepository.findByName(name)
+                .orElseThrow(() -> new Exception("Category not found with name: " + name));
+    
+        return categoryMapper.toDto(categoryEntity); // Convert entity to DTO and return it
+    
+    }
+    
 }
