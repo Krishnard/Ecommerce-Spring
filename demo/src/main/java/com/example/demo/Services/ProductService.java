@@ -1,7 +1,9 @@
 package com.example.demo.Services;
 
+import com.example.demo.Repository.categoryRepository;
 import com.example.demo.Repository.productRepository;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.mappers.productMapper;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,13 @@ public class ProductService implements IProductService {
 
     private final productRepository productRepository;
     
-    public ProductService(productRepository productRepository) {
+    private final categoryRepository categoryRepository;
+    
+    public ProductService(productRepository productRepository, categoryRepository categoryRepository) {
         
         this.productRepository = productRepository;
+        
+        this.categoryRepository = categoryRepository;
         
     }
     
@@ -36,7 +42,12 @@ public class ProductService implements IProductService {
     
     @Override
     public ProductDTO createProduct(ProductDTO productDto) {
-        ProductEntity productEntity = productMapper.toEntity(productDto); // Convert DTO to Entity
+        CategoryEntity categoryEntity = categoryRepository.findById(productDto.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found")); // Find the category entity by ID
+        // this is to ensure that the category exists before creating the product
+        
+        ProductEntity productEntity = productMapper.toEntity(productDto,categoryEntity); // Convert DTO to Entity
+        // also added categoryEntity as a parameter as we have to set the category entity directly in the product entity
         
         ProductEntity productEntitySaved = productRepository.save(productEntity); // Save the entity
         

@@ -1,6 +1,7 @@
 package com.example.demo.mappers;
 
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ProductEntity;
 
 public class productMapper {
@@ -17,12 +18,14 @@ public class productMapper {
                 .discount(productEntity.getDiscount())
                 .model(productEntity.getModel())
                 .title(productEntity.getTitle())
-                .category(productEntity.getCategory())
+//                .category(productEntity.getCategory()) // no more need after adding JPA relationship mapping
+                .categoryId(productEntity.getCategory().getId()) // now we can get the category id from the category entity
+                // ProductEntity has Category as an entity - which means first we need to get the category (.getCategory()) and then get the id (.getID())
                 .popular(productEntity.isPopular())
                 .build();
     }
     
-    public static ProductEntity toEntity(ProductDTO dto) {
+    public static ProductEntity toEntity(ProductDTO dto, CategoryEntity categoryEntity){
         
         return ProductEntity.builder()
                 .image(dto.getImage())
@@ -32,8 +35,10 @@ public class productMapper {
                 .discount(dto.getDiscount())
                 .model(dto.getModel())
                 .title(dto.getTitle())
-                .category(dto.getCategory())
                 .brand(dto.getBrand())
+                
+                .category(categoryEntity) // setting the category entity directly
+                
                 .popular(dto.isPopular())
                 .build();
     }
