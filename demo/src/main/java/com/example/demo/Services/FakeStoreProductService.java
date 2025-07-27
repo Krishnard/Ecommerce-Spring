@@ -4,6 +4,8 @@ import com.example.demo.Gateway.IProductGateway;
 import com.example.demo.dto.ProductDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FakeStoreProductService implements IProductService {
 
@@ -20,6 +22,11 @@ public class FakeStoreProductService implements IProductService {
     
     @Override
     public ProductDTO createProduct(ProductDTO productDto)  {
+        return null;
+    }
+    
+    
+    public List<ProductDTO> getExpensiveProducts(double price) throws Exception{
         return null;
     }
 }

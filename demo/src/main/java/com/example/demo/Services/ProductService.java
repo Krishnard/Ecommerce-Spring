@@ -8,6 +8,8 @@ import com.example.demo.entity.ProductEntity;
 import com.example.demo.mappers.productMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -59,4 +61,18 @@ public class ProductService implements IProductService {
 //        ProductEntity productSaved =  productRepository.save(productMapper.toEntity(productDto));
 //        return productMapper.toDTO(productSaved);
     }
+    
+    
+    @Override
+    public List<ProductDTO> getExpensiveProducts(double minPrice) throws Exception {
+        // This method should return products that are more expensive than the given price
+        List<ProductEntity> expensiveProducts =  productRepository.findExpensiveProducts(minPrice);
+        
+        if(expensiveProducts.isEmpty()) {
+            throw new Exception("No products found greater than minprice : " + minPrice);
+        }
+        
+        return expensiveProducts.stream().map(productMapper::toDTO).collect(Collectors.toList());
+    }
+    
 }

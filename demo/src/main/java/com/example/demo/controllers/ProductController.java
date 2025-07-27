@@ -38,5 +38,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(productDto));
     }
     
+    @GetMapping("/expensive")
+    public ResponseEntity<?> findExpensiveProducts(@RequestParam("price") double price) throws Exception {
+        return ResponseEntity.ok(productService.getExpensiveProducts(price));
+    }
+    
     
 }

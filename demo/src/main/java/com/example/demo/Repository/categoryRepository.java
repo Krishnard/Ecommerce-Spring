@@ -12,4 +12,6 @@ public interface categoryRepository extends JpaRepository<CategoryEntity,Long> {
     
     // Find Category by name
     Optional<CategoryEntity> findByName(String name) throws Exception;
+    
+    
 }
