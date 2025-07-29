@@ -6,6 +6,7 @@ import com.example.demo.dto.ProductDTO;
 import com.example.demo.dto.ProductWithCategoryDTO;
 import com.example.demo.entity.CategoryEntity;
 import com.example.demo.entity.ProductEntity;
+import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.mappers.productMapper;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class ProductService implements IProductService {
 //                .orElseThrow(() -> new Exception("Product not found."));
     
         ProductEntity productEntity = productRepository.findById(id)
-                .orElseThrow(() -> new Exception("Product not found.")); // Find the entity by ID
+                .orElseThrow(() -> new ProductNotFoundException("Product with ID: "+ id +" not found.")); // Find the entity by ID
         
         return productMapper.toDTO(productEntity); // Convert the entity to DTO and return it
     

@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.Repository.categoryRepository;
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.entity.CategoryEntity;
+import com.example.demo.exception.CategoryNotFoundException;
 import com.example.demo.mappers.categoryMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class CategoryService implements ICategoryService{
     @Override
     public CategoryDTO getCategoryByName(String name) throws Exception {
          CategoryEntity categoryEntity = categoryRepository.findByName(name)
-                .orElseThrow(() -> new Exception("Category not found with name: " + name));
+                .orElseThrow(() -> new CategoryNotFoundException("Category : " + name+" not found "));
     
         return categoryMapper.toDto(categoryEntity); // Convert entity to DTO and return it
     
