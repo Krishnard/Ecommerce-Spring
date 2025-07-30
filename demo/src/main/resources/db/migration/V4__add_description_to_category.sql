@@ -1,0 +1,1 @@
+ALTER TABLE CategoryEntity ADD COLUMN description VARCHAR(255) NULL;
