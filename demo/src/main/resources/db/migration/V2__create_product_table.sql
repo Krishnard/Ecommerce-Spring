@@ -1,4 +1,4 @@
-CREATE TABLE ProductEntity (
+CREATE TABLE product (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     image VARCHAR(255),
     color VARCHAR(50),
@@ -13,5 +13,5 @@ CREATE TABLE ProductEntity (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES CategoryEntity(id)
+    CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES category(id)
 );

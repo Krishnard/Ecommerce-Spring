@@ -1,1 +1,1 @@
-ALTER TABLE ProductEntity ADD rating INT DEFAULT 0;
+ALTER TABLE product ADD rating INT DEFAULT 0;

@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "category")
 public class CategoryEntity extends BaseEntity {
     
     // id is imported from BaseEntity // no need to specify it again here
