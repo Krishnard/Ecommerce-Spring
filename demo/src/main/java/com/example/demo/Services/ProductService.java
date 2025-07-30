@@ -31,7 +31,7 @@ public class ProductService implements IProductService {
     
 
     
-    public ProductDTO getProductById(Long id) throws Exception {
+    public ProductDTO getProductById(Long id) {
 //        return productRepository.findById(id)
 //                .map(productMapper::toDTO)
 //                .orElseThrow(() -> new Exception("Product not found."));

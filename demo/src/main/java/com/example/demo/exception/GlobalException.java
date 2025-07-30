@@ -3,11 +3,11 @@ package com.example.demo.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
-@RestController
+@RestControllerAdvice
 public class GlobalException {
     
     @ExceptionHandler(ProductNotFoundException.class)
@@ -56,5 +56,5 @@ public class GlobalException {
         
         return new ResponseEntity<>(eerr, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+   
 }

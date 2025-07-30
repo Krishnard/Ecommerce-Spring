@@ -1,7 +1,14 @@
 package com.example.demo.exception;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
 public class ErrorResponse {
 
     private int status;
