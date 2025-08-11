@@ -38,6 +38,8 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j' // this adds the MySQL driver for
 	implementation 'org.flywaydb:flyway-core:11.10.0' // flyway migration
 	implementation 'org.flywaydb:flyway-mysql:11.7.2' // flyway mysql
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.3.0' // eureka client
+
 }
 
 tasks.named('test') {
