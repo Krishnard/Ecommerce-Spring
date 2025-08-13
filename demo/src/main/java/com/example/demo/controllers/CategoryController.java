@@ -59,7 +59,7 @@ public class CategoryController {
         // this will return a 201 Created status code
         // return ResponseEntity.created(null).body(responseResult);
     
-        if (name != null || name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             CategoryDTO categoryDTO = CategoryService.getCategoryByName(name);
             
             return ResponseEntity.ok(categoryDTO); // Return a single category wrapped in a list
